@@ -1,0 +1,53 @@
+trigger:
+- master
+
+jobs:
+  - job: Linux
+    displayName: 'Linux'
+    pool: Ubuntu-1804
+    strategy:
+      matrix:
+        gccdefault_coverage:
+          CMAKE_VARIANT: Debug
+          CXXFLAGS: '-fprofile-arcs --coverage'
+          CXX: g++
+          CC: gcc
+          SKIP_COVERAGE: 'false'
+        gcc7debug:
+          CMAKE_VARIANT: Debug
+          CXX: g++-7
+          CC: gcc-7
+        gcc8release:
+          CMAKE_VARIANT: Release
+          CXX: g++-8
+          CC: gcc-8
+        gcc8asan:
+          CMAKE_VARIANT: Debug
+          CXX: g++-8
+          CC: gcc-8
+          SANITIZE: On
+        clangdebug:
+          CMAKE_VARIANT: Debug
+          CXX: clang++
+          CC: clang
+        clangasan:
+          CMAKE_VARIANT: Debug
+          CXX: clang++
+          CC: clang
+          CXXFLAGS: -fsanitize=address,undefined -pthread
+        clangrelease:
+          CMAKE_VARIANT: Release
+          CXX: clang++
+          CC: clang
+    steps:
+      - script: sudo modprobe vcan && sudo tools/create_vcans.sh vcan0 vcan1 || echo "May fail if they exist already"
+        displayName: 'Create virtual CAN interfaces'
+      - script: cmake -GNinja -H. -Bbuild -DCANARY_SANITIZE=$SANITIZE -DCMAKE_TOOLCHAIN_FILE="~/vcpkg/scripts/buildsystems/vcpkg.cmake" -DCMAKE_CXX_CLANG_TIDY="$(which clang-tidy);-header-filter=$(pwd)/include/\*" -DCMAKE_BUILD_TYPE=$CMAKE_VARIANT
+        displayName: 'Configure'
+      - script: cmake --build build
+        displayName: Build
+      - script: cd build && ctest --output-on-failure
+        displayName: 'Run tests'
+      - script: ./tools/coverage.sh && curl -s https://codecov.io/bash -o codecov && bash ./codecov -X gcov -f build/coverage.info -t $(CODECOV_TOKEN)
+        displayName: 'Collect coverage'
+        condition: and(succeeded(), eq(variables['SKIP_COVERAGE'], 'false'))
