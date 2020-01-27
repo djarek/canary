@@ -2,7 +2,7 @@
 
 Language|Build|Coverage|License|Documentation|
 |-------|-----|--------|-------|-------------|
-|[![Standard](https://img.shields.io/badge/C%2B%2B-11-blue.svg)](https://en.wikipedia.org/wiki/C%2B%2B#Standardization) | TODO | TODO | [![License](https://img.shields.io/badge/license-BSL%201.0-blue.svg)](https://opensource.org/licenses/BSL-1.0) | TODO
+|[![Standard](https://img.shields.io/badge/C%2B%2B-11-blue.svg)](https://en.wikipedia.org/wiki/C%2B%2B#Standardization) | [![Build Status](https://dev.azure.com/damianjarek93/canary/_apis/build/status/djarek.canary?branchName=master)](https://dev.azure.com/damianjarek93/canary/_build/latest?definitionId=11&branchName=master) | [![codecov](https://codecov.io/gh/djarek/canary/branch/master/graph/badge.svg)](https://codecov.io/gh/djarek/canary) | [![License](https://img.shields.io/badge/license-BSL%201.0-blue.svg)](https://opensource.org/licenses/BSL-1.0) | TODO
 
 ## Introduction
 
