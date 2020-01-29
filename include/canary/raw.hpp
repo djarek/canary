@@ -7,8 +7,8 @@
 // Official repository: https://github.com/djarek/canary
 //
 
-#ifndef CANARY_CANARY_HPP
-#define CANARY_CANARY_HPP
+#ifndef CANARY_RAW_HPP
+#define CANARY_RAW_HPP
 
 #include <canary/basic_endpoint.hpp>
 
@@ -21,11 +21,7 @@
 namespace canary
 {
 
-/// Encapsulates the flags and types needed for raw CAN.
-/**
- * The canary::raw class contains flags necessary for creation of raw CAN
- * sockets.
- */
+/// Encapsulates flags necessary for creation of raw CAN sockets.
 class raw
 {
 public:
@@ -55,4 +51,4 @@ public:
 
 } // namespace canary
 
-#endif // CANARY_CANARY_HPP
+#endif // CANARY_RAW_HPP

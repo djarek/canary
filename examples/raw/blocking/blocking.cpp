@@ -7,9 +7,9 @@
 // Official repository: https://github.com/djarek/canary
 //
 
+#include <canary/frame_header.hpp>
 #include <canary/interface_index.hpp>
 #include <canary/raw.hpp>
-#include <canary/static_frame.hpp>
 #include <iostream>
 
 int
@@ -22,15 +22,20 @@ main()
     auto const ep = canary::raw::endpoint{idx};
     // Construct and bind a raw CAN frame socket to the endpoint.
     canary::raw::socket sock{ioc, ep};
-    canary::static_frame frame;
-    sock.receive(frame.buffers());
-    std::cout << "Received CAN frame, id: " << std::hex << frame.id()
-              << " len: " << std::dec << frame.data().size() << '\n';
-    frame = {};
+    struct frame
+    {
+        canary::frame_header header;
+        std::array<std::uint8_t, 8> payload;
+    } f;
+
+    sock.receive(canary::net::buffer(&f, sizeof(f)));
+    std::cout << "Received CAN frame, id: " << std::hex << f.header.id()
+              << " len: " << std::dec << f.header.payload_length() << '\n';
+    f = {};
     std::string const str{"hello"};
-    frame.is_extended_format(true);
-    frame.id(0x1EADBEEF);
-    frame.resize(str.size());
-    boost::asio::buffer_copy(frame.data(), boost::asio::buffer(str));
-    sock.send(frame.buffers());
+    f.header.extended_format(true);
+    f.header.id(0x1EADBEEF);
+    f.header.payload_length(boost::asio::buffer_copy(
+      canary::net::buffer(f.payload), boost::asio::buffer(str)));
+    sock.send(canary::net::buffer(&f, sizeof(f)));
 }

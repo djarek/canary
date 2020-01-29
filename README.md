@@ -2,7 +2,7 @@
 
 Language|Build|Coverage|License|Documentation|
 |-------|-----|--------|-------|-------------|
-|[![Standard](https://img.shields.io/badge/C%2B%2B-11-blue.svg)](https://en.wikipedia.org/wiki/C%2B%2B#Standardization) | [![Build Status](https://dev.azure.com/damianjarek93/canary/_apis/build/status/djarek.canary?branchName=master)](https://dev.azure.com/damianjarek93/canary/_build/latest?definitionId=11&branchName=master) | [![codecov](https://codecov.io/gh/djarek/canary/branch/master/graph/badge.svg)](https://codecov.io/gh/djarek/canary) | [![License](https://img.shields.io/badge/license-BSL%201.0-blue.svg)](https://opensource.org/licenses/BSL-1.0) | TODO
+|[![Standard](https://img.shields.io/badge/C%2B%2B-11-blue.svg)](https://en.wikipedia.org/wiki/C%2B%2B#Standardization) | [![Build Status](https://dev.azure.com/damianjarek93/canary/_apis/build/status/djarek.canary?branchName=master)](https://dev.azure.com/damianjarek93/canary/_build/latest?definitionId=11&branchName=master) | [![codecov](https://codecov.io/gh/djarek/canary/branch/master/graph/badge.svg)](https://codecov.io/gh/djarek/canary) | [![License](https://img.shields.io/badge/license-BSL%201.0-blue.svg)](https://opensource.org/licenses/BSL-1.0) | [![Documentation](https://img.shields.io/badge/documentation-master-brightgreen.svg)](doc/generated/standardese_entities.md)
 
 ## Introduction
 
@@ -53,3 +53,8 @@ cd build
 cmake ..
 make test
 ```
+
+## Documentation
+- Examples (TODO)
+- [API Reference - entities](doc/generated/standardese_entities.md)
+- [API Reference - files](doc/generated/standardese_files.md)
