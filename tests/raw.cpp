@@ -11,6 +11,7 @@
 #include <canary/raw.hpp>
 
 #include <boost/core/lightweight_test.hpp>
+#include <canary/interface_index.hpp>
 
 namespace
 {

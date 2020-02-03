@@ -10,6 +10,7 @@
 // Test if header is self-contained
 #include <canary/frame_header.hpp>
 
+#include <array>
 #include <boost/core/lightweight_test.hpp>
 #include <linux/can.h>
 
@@ -25,7 +26,8 @@ test_layout()
         std::array<std::uint8_t, 8> data;
     } f{};
     ::can_frame cf;
-    static_assert(sizeof(f) == sizeof(cf));
+    static_assert(sizeof(f) == sizeof(cf),
+                  "Frame header layout must match native can_frame struct.");
 
     f.fh.id(0x1EAD);
     BOOST_TEST_EQ(f.fh.id(), 0x1EAD);
