@@ -9,7 +9,7 @@ jobs:
       matrix:
         gccdefault_coverage:
           CMAKE_VARIANT: Debug
-          CXXFLAGS: '-fprofile-arcs --coverage'
+          CXXFLAGS: '-Wall -Wextra -Wconversion -pedantic -fprofile-arcs --coverage'
           CXX: g++
           CC: gcc
           SKIP_COVERAGE: 'false'
@@ -17,28 +17,33 @@ jobs:
           CMAKE_VARIANT: Debug
           CXX: g++-7
           CC: gcc-7
+          CXXFLAGS: -Wall -Wextra -Wconversion -pedantic
         gcc8release:
           CMAKE_VARIANT: Release
           CXX: g++-8
           CC: gcc-8
+          CXXFLAGS: -Wall -Wextra -Wconversion -pedantic
         gcc8asan:
           CMAKE_VARIANT: Debug
           CXX: g++-8
           CC: gcc-8
           SANITIZE: On
+          CXXFLAGS: -Wall -Wextra -Wconversion -pedantic
         clangdebug:
           CMAKE_VARIANT: Debug
           CXX: clang++
           CC: clang
+          CXXFLAGS: -Wall -Wextra -Wconversion -pedantic
         clangasan:
           CMAKE_VARIANT: Debug
           CXX: clang++
           CC: clang
-          CXXFLAGS: -fsanitize=address,undefined -pthread
+          CXXFLAGS: -Wall -Wextra -Wconversion -pedantic -fsanitize=address,undefined -pthread
         clangrelease:
           CMAKE_VARIANT: Release
           CXX: clang++
           CC: clang
+          CXXFLAGS: -Wall -Wextra -Wconversion -pedantic
     steps:
       - script: sudo modprobe vcan && sudo tools/create_vcans.sh vcan0 vcan1 || echo "May fail if they exist already"
         displayName: 'Create virtual CAN interfaces'

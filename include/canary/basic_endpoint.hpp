@@ -100,8 +100,4 @@ private:
 
 } // namespace canary
 
-#ifndef CANARY_SEPARATE_COMPILATION
-#include <canary/impl/interface_index.ipp>
-#endif // CANARY_SEPARATE_COMPILATION
-
 #endif // CANARY_BASIC_ENDPOINT_HPP
