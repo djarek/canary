@@ -16,29 +16,17 @@
 namespace canary
 {
 
-/// Attempt to retrieve the interface index associated with an interface name.
-/**
- * This function is used to determine the interface index necessary when binding
- * a CAN socket to a particular CAN interface.
- *
- * @param name The network interface name.
- * @param ec Set to indicate what error occurred when the function fails.
- *
- * @returns The interface index.
- */
+/// Retrieves the interface index required to bind a CAN socket to a particular
+/// CAN interface.
+/// \param name The network interface name.
+/// \param ec Set to indicate what error occurred when the function fails.
+/// \returns The interface index.
 CANARY_DECL unsigned int
 get_interface_index(std::string const& name, error_code& ec);
 
-/// Attempt to retrieve the interface index associated with an interface name.
-/**
- * This function is used to determine the interface index necessary when binding
- * a CAN socket to a particular CAN interface. Will throw an instance
- * system_error if the function fails.
- *
- * @param name The network interface name.
- *
- * @returns The interface index.
- */
+/// Retrieves the interface index required to bind a CAN socket to a particular
+/// CAN interface.  Will throw an instance std::system_error if the function
+/// fails. \param name The network interface name. \returns The interface index.
 CANARY_DECL unsigned int
 get_interface_index(std::string const& name);
 

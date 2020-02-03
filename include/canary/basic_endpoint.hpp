@@ -22,11 +22,8 @@
 namespace canary
 {
 
-/// Describes an endpoint for a CAN bus interface.
-/**
- * The canary::basic_endpoint class template describes an endpoint that
- * can be associated with a particular CAN bus socket.
- */
+/// Describes an endpoint for a CAN bus interface that can be bound to a CAN
+/// socket.
 template<class Protocol>
 class basic_endpoint
 {
@@ -47,7 +44,8 @@ public:
     basic_endpoint(unsigned int interface_index)
     {
         addr_.can_ifindex = interface_index;
-        addr_.can_family = protocol_type{}.family();
+        addr_.can_family =
+          static_cast<unsigned short>(protocol_type{}.family());
     }
 
     /// Constructs an object of the protocol type associated with this endpoint.
