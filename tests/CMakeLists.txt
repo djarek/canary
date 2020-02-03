@@ -14,5 +14,6 @@ function(canary_add_test test_name)
 endfunction(canary_add_test)
 
 canary_add_test(basic_endpoint)
+canary_add_test(frame_header)
 canary_add_test(interface_index)
 canary_add_test(raw)
