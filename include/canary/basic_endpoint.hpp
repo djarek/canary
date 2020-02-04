@@ -43,7 +43,7 @@ public:
     /// Construct an endpoint that represents a particular CAN interface index.
     basic_endpoint(unsigned int interface_index)
     {
-        addr_.can_ifindex = interface_index;
+        addr_.can_ifindex = static_cast<int>(interface_index);
         addr_.can_family =
           static_cast<unsigned short>(protocol_type{}.family());
     }
@@ -57,7 +57,7 @@ public:
     /// Returns the interface index that this endpoint represents.
     unsigned int interface_index() const noexcept
     {
-        return addr_.can_ifindex;
+        return static_cast<unsigned int>(addr_.can_ifindex);
     }
 
     /// Get the underlying endpoint in the native type.

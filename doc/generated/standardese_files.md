@@ -7,3 +7,5 @@
   - [`interface_index.hpp`](doc_interface_index.md#standardese-interface_index-hpp)
 
   - [`raw.hpp`](doc_raw.md#standardese-raw-hpp)
+
+  - [`socket_options.hpp`](doc_socket_options.md#standardese-socket_options-hpp)
