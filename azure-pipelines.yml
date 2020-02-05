@@ -27,8 +27,7 @@ jobs:
           CMAKE_VARIANT: Debug
           CXX: g++-8
           CC: gcc-8
-          SANITIZE: On
-          CXXFLAGS: -Wall -Wextra -Wconversion -pedantic
+          CXXFLAGS: -Wall -Wextra -Wconversion -pedantic -fsanitize=address,undefined
         clangdebug:
           CMAKE_VARIANT: Debug
           CXX: clang++
@@ -47,7 +46,7 @@ jobs:
     steps:
       - script: sudo modprobe vcan && sudo tools/create_vcans.sh vcan0 vcan1 || echo "May fail if they exist already"
         displayName: 'Create virtual CAN interfaces'
-      - script: cmake -GNinja -H. -Bbuild -DCANARY_SANITIZE=$SANITIZE -DCMAKE_TOOLCHAIN_FILE="~/vcpkg/scripts/buildsystems/vcpkg.cmake" -DCMAKE_CXX_CLANG_TIDY="$(which clang-tidy);-header-filter=$(pwd)/include/\*" -DCMAKE_BUILD_TYPE=$CMAKE_VARIANT
+      - script: cmake -GNinja -H. -Bbuild -DCMAKE_TOOLCHAIN_FILE="~/vcpkg/scripts/buildsystems/vcpkg.cmake" -DCMAKE_CXX_CLANG_TIDY="$(which clang-tidy);-header-filter=$(pwd)/include/\*" -DCMAKE_BUILD_TYPE=$CMAKE_VARIANT
         displayName: 'Configure'
       - script: cmake --build build
         displayName: Build
