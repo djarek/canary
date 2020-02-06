@@ -30,18 +30,22 @@ test_layout()
                   "Frame header layout must match native can_frame struct.");
 
     f.fh.id(0x1EAD);
-    BOOST_TEST_EQ(f.fh.id(), 0x1EAD);
-
     f.fh.extended_format(true);
     f.fh.error(false);
     f.fh.remote_transmission(false);
     f.fh.payload_length(2);
+
     std::memcpy(&cf, &f, sizeof(f));
     BOOST_TEST_EQ(cf.can_id & CAN_EFF_MASK, 0x1EAD);
     BOOST_TEST_EQ((cf.can_id & CAN_EFF_FLAG) >> 31, true);
     BOOST_TEST_EQ((cf.can_id & CAN_RTR_FLAG) >> 30, false);
     BOOST_TEST_EQ((cf.can_id & CAN_ERR_FLAG) >> 29, false);
     BOOST_TEST_EQ(static_cast<int>(cf.can_dlc), 2);
+    BOOST_TEST_EQ(f.fh.id(), 0x1EAD);
+    BOOST_TEST_EQ(f.fh.extended_format(), true);
+    BOOST_TEST_EQ(f.fh.error(), false);
+    BOOST_TEST_EQ(f.fh.remote_transmission(), false);
+    BOOST_TEST_EQ(f.fh.payload_length(), 2);
 
     f.fh.extended_format(false);
     f.fh.error(false);
@@ -53,6 +57,11 @@ test_layout()
     BOOST_TEST_EQ((cf.can_id & CAN_RTR_FLAG) >> 30, true);
     BOOST_TEST_EQ((cf.can_id & CAN_ERR_FLAG) >> 29, false);
     BOOST_TEST_EQ(static_cast<int>(cf.can_dlc), 3);
+    BOOST_TEST_EQ(f.fh.id(), 0x1EAD);
+    BOOST_TEST_EQ(f.fh.extended_format(), false);
+    BOOST_TEST_EQ(f.fh.error(), false);
+    BOOST_TEST_EQ(f.fh.remote_transmission(), true);
+    BOOST_TEST_EQ(f.fh.payload_length(), 3);
 
     f.fh.extended_format(false);
     f.fh.error(true);
@@ -64,6 +73,11 @@ test_layout()
     BOOST_TEST_EQ((cf.can_id & CAN_RTR_FLAG) >> 30, false);
     BOOST_TEST_EQ((cf.can_id & CAN_ERR_FLAG) >> 29, true);
     BOOST_TEST_EQ(static_cast<int>(cf.can_dlc), 4);
+    BOOST_TEST_EQ(f.fh.id(), 0x1EAD);
+    BOOST_TEST_EQ(f.fh.extended_format(), false);
+    BOOST_TEST_EQ(f.fh.error(), true);
+    BOOST_TEST_EQ(f.fh.remote_transmission(), false);
+    BOOST_TEST_EQ(f.fh.payload_length(), 4);
 }
 
 } // namespace
