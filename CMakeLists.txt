@@ -10,14 +10,6 @@
 cmake_minimum_required(VERSION 3.8)
 project(canary VERSION 1 LANGUAGES CXX)
 
-# TODO: This should be in a toolchain file
-option(CANARY_SANITIZE "Build canary tests and examples with address & undefined sanitization enabled" OFF)
-if (CANARY_SANITIZE)
-    message(STATUS "canary: address & undefined sanitizers enabled")
-    add_compile_options(-fsanitize=address,undefined)
-    link_libraries(-fsanitize=address,undefined)
-endif()
-
 # TODO: Don't require Boost if ASIO standalone option is required
 find_package(Boost 1.70
              COMPONENTS
