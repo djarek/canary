@@ -9,7 +9,7 @@ jobs:
       matrix:
         gccdefault_coverage:
           CMAKE_VARIANT: Debug
-          CXXFLAGS: '-Wall -Wextra -Wconversion -pedantic -fprofile-arcs --coverage'
+          CXXFLAGS: '-Wall -Wextra -Wconversion -pedantic -fprofile-arcs -fkeep-inline-functions --coverage'
           CXX: g++
           CC: gcc
           SKIP_COVERAGE: 'false'
