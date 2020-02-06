@@ -24,7 +24,7 @@ add_library(canary::canary ALIAS canary)
 
 target_include_directories(canary INTERFACE
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>)
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
 target_link_libraries(
     canary
