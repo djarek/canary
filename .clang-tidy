@@ -1,5 +1,5 @@
 ---
-Checks:          'clang-diagnostic-*,clang-analyzer-*,*,-fuchsia-default-arguments,-hicpp-no-array-decay,-cppcoreguidelines-pro-bounds-array-to-pointer-decay'
+Checks:          'clang-diagnostic-*,clang-analyzer-*,*,-fuchsia-default-arguments-calls,-fuchsia-default-arguments,-hicpp-no-array-decay,-cppcoreguidelines-pro-bounds-array-to-pointer-decay,-cppcoreguidelines-avoid-magic-numbers'
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
 AnalyzeTemporaryDtors: true

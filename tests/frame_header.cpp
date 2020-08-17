@@ -23,9 +23,9 @@ test_layout()
     struct frame
     {
         canary::frame_header fh;
-        std::array<std::uint8_t, 8> data;
+        std::array<std::uint8_t, 8> data{};
     } f{};
-    ::can_frame cf;
+    ::can_frame cf{};
     static_assert(sizeof(f) == sizeof(cf),
                   "Frame header layout must match native can_frame struct.");
 
