@@ -9,3 +9,7 @@
 
 add_executable(raw_blocking raw/blocking/blocking.cpp)
 target_link_libraries(raw_blocking canary::canary)
+
+
+add_executable(isotp_blocking isotp/blocking/blocking.cpp)
+target_link_libraries(isotp_blocking canary::canary)

@@ -8,7 +8,7 @@
 #
 
 cmake_minimum_required(VERSION 3.8)
-project(canary VERSION 1 LANGUAGES CXX)
+project(canary VERSION 2 LANGUAGES CXX)
 
 # TODO: Don't require Boost if ASIO standalone option is required
 find_package(Boost 1.70

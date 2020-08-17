@@ -54,6 +54,28 @@ cmake ..
 make test
 ```
 
+## Supported protocols
+
+### Raw CAN frames
+Canary exposes the raw CAN frame socket API from Linux's SocketCAN module.
+When using this API, data read from the socket will contain a frame header at
+the start. Users can parse it on their own, or use the provided `frame_header`
+class, which is trivially copyable and can be filled by reading from the socket
+directly. Note that the header is not an exact CAN frame header - the underlying
+API does not expose lower-level protocol detail, such as CRCs.
+
+### ISO-TP kernel module
+Canary provides a wrapper for the in-kernel ISO 15765-2(also known as ISO-TP)
+implementation which is loadable as a kernel module, [see more
+details](https://github.com/hartkopp/can-isotp). When using this transport-layer
+protocol, a socket is bound to a CAN ID pair (rx, tx), often referred to as
+"ISO-TP addresses". If more addresses are to be used, a socket per (rx, tx) pair
+must be constructed.
+
+Note: The ISO-TP kernel module must either be loaded prior to creating an ISO-TP
+socket, or the module must be configured to be loaded on socket creation attempt
+(using `depmod -A` after installation)
+
 ## Documentation
 - Examples (TODO)
 - [API Reference - entities](doc/generated/standardese_entities.md)

@@ -10,13 +10,14 @@
 #ifndef CANARY_BASIC_ENDPOINT_HPP
 #define CANARY_BASIC_ENDPOINT_HPP
 
+#include <canary/detail/config.hpp>
+
 #ifdef CANARY_STANDALONE_ASIO
 #include <asio/error.hpp>
 #else
 #include <boost/asio/error.hpp>
 #endif // CANARY_STANDALONE_ASIO
 
-#include <canary/detail/config.hpp>
 #include <linux/can/raw.h>
 
 namespace canary
@@ -46,6 +47,16 @@ public:
         addr_.can_ifindex = static_cast<int>(interface_index);
         addr_.can_family =
           static_cast<unsigned short>(protocol_type{}.family());
+    }
+
+    /// Construct an endpoint that represents a particular ISO-TP rx/tx pair on a specified CAN interface index.
+    basic_endpoint(unsigned int interface_index, std::uint32_t rx, std::uint32_t tx)
+    {
+        addr_.can_ifindex = static_cast<int>(interface_index);
+        addr_.can_family =
+          static_cast<unsigned short>(protocol_type{}.family());
+        addr_.can_addr.tp.rx_id = rx;
+        addr_.can_addr.tp.tx_id = tx;
     }
 
     /// Constructs an object of the protocol type associated with this endpoint.
