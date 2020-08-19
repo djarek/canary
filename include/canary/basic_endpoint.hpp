@@ -35,7 +35,11 @@ public:
     /// Underlying type used to store the endpoint information.
     using data_type = ::sockaddr;
 
-    /// Default constructor
+    /// Default constructor.
+    ///
+    /// The endpoint represents any interface. When a socket is bound to this
+    /// endpoint, it will be able to receive and send frames to all CAN
+    /// interfaces.
     basic_endpoint()
       : basic_endpoint{0}
     {

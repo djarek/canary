@@ -43,6 +43,12 @@ get_interface_index(std::string const& name)
     return ret;
 }
 
+unsigned int
+any_interface()
+{
+    return 0;
+}
+
 } // namespace canary
 
 #endif // CANARY_INTERFACE_INDEX_IPP

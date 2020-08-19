@@ -30,6 +30,14 @@ get_interface_index(std::string const& name, error_code& ec);
 CANARY_DECL unsigned int
 get_interface_index(std::string const& name);
 
+/// Returns the index which represents any CAN interface.
+/// \note When using any CAN interface, it is recommended to use
+/// `receive_from`/`send_to` functions to avoid unintentionally sending frames
+/// to the wrong CAN interface.
+/// \returns The interface index.
+CANARY_DECL unsigned int
+any_interface();
+
 } // namespace canary
 
 #ifndef CANARY_SEPARATE_COMPILATION
