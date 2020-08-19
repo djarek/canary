@@ -38,7 +38,7 @@ get_interface_index(std::string const& name)
     auto ret = canary::get_interface_index(name, ec);
     if (ec)
     {
-        throw system_error{ec};
+        canary::detail::throw_exception(system_error{ec});
     }
     return ret;
 }

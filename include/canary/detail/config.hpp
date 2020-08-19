@@ -27,7 +27,7 @@
 #ifdef CANARY_STANDALONE_ASIO
 
 #include <system_error>
-
+#include <asio/detail/throw_exception.hpp>
 namespace asio
 {
 } // namespace asio
@@ -38,12 +38,21 @@ namespace net = asio;
 using error_code = std::error_code;
 using system_error = std::system_error;
 using std::generic_category;
+
+namespace detail
+{
+template <class E>
+[[noreturn]] void throw_exception(E&& e)
+{
+    asio::detail::throw_exception(std::forward<E>(e));
+}
+} // namespace detail
 } // namespace canary
 
 #else // CANARY_STANDALONE_ASIO
 
 #include <boost/system/system_error.hpp>
-
+#include <boost/asio/detail/throw_exception.hpp>
 namespace boost
 {
 namespace asio
@@ -57,6 +66,15 @@ namespace net = boost::asio;
 using error_code = boost::system::error_code;
 using system_error = boost::system::system_error;
 using boost::system::generic_category;
+
+namespace detail
+{
+template <class E>
+[[noreturn]] void throw_exception(E&& e)
+{
+    boost::asio::detail::throw_exception(std::forward<E>(e));
+}
+} // namespace detail
 } // namespace canary
 
 #endif // CANARY_STANDALONE_ASIO
