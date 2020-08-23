@@ -13,6 +13,7 @@ set -e
 
 for ifname in "$@"
 do
+    ip link delete $ifname || true
     ip link add dev $ifname type vcan
     ip link set up $ifname
 done
