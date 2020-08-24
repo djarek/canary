@@ -1,0 +1,29 @@
+{
+    "name": "canary",
+    "maintainers": "Damian Jarek <damian.jarek93@gmail.com>",
+    "version-string": "2-dev",
+    "license": "BSL-1.0",
+    "homepage": "https://github.com/djarek/canary",
+    "documentation": "https://github.com/djarek/canary#documentation",
+    "description": "Linux SocketCAN bindings for ASIO/Boost.ASIO",
+    "features": [
+        {
+            "name": "use-standalone-asio",
+            "description": "Use standalone-asio",
+            "dependencies": [
+                "asio"
+            ]
+        },
+        {
+            "name": "use-boost-asio",
+            "description": "Use boost-asio",
+            "dependencies": [
+                "boost-asio"
+            ]
+        }
+    ],
+    "default-features": [
+        "use-boost-asio"
+    ],
+    "supports": "linux"
+}
