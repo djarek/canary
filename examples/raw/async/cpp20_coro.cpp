@@ -10,6 +10,7 @@
 #include <canary/frame_header.hpp>
 #include <canary/interface_index.hpp>
 #include <canary/raw.hpp>
+#include <canary/socket_options.hpp>
 #include <iostream>
 
 #ifdef CANARY_STANDALONE_ASIO
@@ -33,6 +34,13 @@ main()
           auto const ep = canary::raw::endpoint{idx};
           // Construct and bind a raw CAN frame socket to the endpoint.
           canary::raw::socket sock{ioc, ep};
+          sock.set_option(canary::filter_if_any{{{
+            canary::filter{}
+              .id_mask(~0xFF)            // Only IDs 0x00-0xFF.
+              .remote_transmission(true) // Only remote transmission frames.
+              .extended_format(false)    // Only standard format frames.
+          }}});
+
           struct frame
           {
               canary::frame_header header;

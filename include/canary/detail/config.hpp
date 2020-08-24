@@ -24,6 +24,14 @@
 #endif // CANARY_DECL
 #endif // CANARY_SEPARATE_COMPILATION
 
+#if __cplusplus >= 201703L
+#if __has_include(<span>)
+#ifndef CANARY_HAS_STD_SPAN
+#define CANARY_HAS_STD_SPAN
+#endif // CANARY_HAS_STD_SPAN
+#endif // __has_include(<span>)
+#endif // __cplusplus >= 201703L
+
 #ifdef CANARY_STANDALONE_ASIO
 
 #include <system_error>
