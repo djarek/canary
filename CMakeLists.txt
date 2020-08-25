@@ -35,13 +35,16 @@ target_link_libraries(
 target_compile_features(canary INTERFACE cxx_std_11)
 
 include(CTest)
-option(CANARY_BUILD_COROUTINE_EXAMPLES "Build examples using C++20 coroutines." OFF)
 if(BUILD_TESTING)
     enable_testing()
     add_subdirectory(tests)
 endif()
 
-add_subdirectory(examples)
+option(CANARY_BUILD_EXAMPLES "Build examples." OFF)
+option(CANARY_BUILD_COROUTINE_EXAMPLES "Build examples using C++20 coroutines." OFF)
+if(CANARY_BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif()
 
 
 include(GNUInstallDirs)
