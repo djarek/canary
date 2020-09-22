@@ -23,29 +23,132 @@
 namespace canary
 {
 
+/* tag::reference[]
+
+[#canary_basic_endpoint]
+=== `canary::basic_endpoint`
+
+Defined in header `<canary/basic_endpoint.hpp>`
+
+[source, c++]
+----
+template<class Protocol>
+class basic_endpoint;
+----
+
+Describes an endpoint for a CAN bus interface that can be bound to a CAN socket.
+
+[#canary_basic_endpoint_protocol_type]
+==== `protocol_type`
+[source, c++]
+----
+using protocol_type = Protocol;
+----
+The protocol type associated with the endpoint.
+
+[#canary_basic_endpoint_data_type]
+==== `data_type`
+[source, c++]
+----
+using data_type = IMPLEMENTATION_DEFINED;
+----
+Underlying type used to store the native endpoint information.
+
+[#canary_basic_endpoint_basic_endpoint]
+==== (constructor)
+[source, c++]
+----
+basic_endpoint();                                                                 <1>
+basic_endpoint(unsigned int interface_index);                                     <2>
+basic_endpoint(unsigned int interface_index, std::uint32_t rx, std::uint32_t tx); <3>
+----
+Constructs the endpoint.
+
+<1> Default constructor. The constructed endpoint represents any interface. A
+socket bound to this endpoint will receive frames from all interfaces.
+
+<2> Constructs an endpoint that represents the specified CAN interface index.
+
+<3> Constructs an endpoint that represents the specified ISO-TP rx/tx pair on a specified CAN interface index.
+
+[#canary_basic_endpoint_protocol]
+==== `protocol()`
+[source, c++]
+----
+protocol_type protocol() const noexcept;
+----
+
+Constructs an object of the protocol type associated with this endpoint.
+
+[#canary_basic_endpoint_interface_index]
+==== `interface_index()`
+
+[source, c++]
+----
+unsigned int interface_index() const noexcept;
+----
+
+Returns the interface index that this endpoint represents.
+
+
+[#canary_basic_endpoint_data]
+==== `data()`
+
+[source, c++]
+----
+data_type* data() noexcept;
+----
+
+Returns the underlying native endpoint type.
+
+[#canary_basic_endpoint_size]
+==== `size()`
+
+[source, c++]
+----
+std::size_t size() const noexcept;
+----
+
+Returns the size of the underlying native endpoint type.
+
+
+[#canary_basic_endpoint_capacity]
+==== `capacity()`
+
+[source, c++]
+----
+std::size_t capacity() const noexcept;
+----
+Returns the capacity of the underlying native endpoint type.
+
+
+[#canary_basic_endpoint_resize]
+==== `resize()`
+
+[source, c++]
+----
+void resize(std::size_t n);
+----
+Sets the size of the underlying native endpoint type.
+
+''''
+
+end::reference[] */
+
 /// Describes an endpoint for a CAN bus interface that can be bound to a CAN
 /// socket.
 template<class Protocol>
 class basic_endpoint
 {
 public:
-    /// The protocol type associated with the endpoint.
     using protocol_type = Protocol;
-
-    /// Underlying type used to store the endpoint information.
     using data_type = ::sockaddr;
 
-    /// Default constructor.
-    ///
-    /// The endpoint represents any interface. When a socket is bound to this
-    /// endpoint, it will be able to receive and send frames to all CAN
-    /// interfaces.
     basic_endpoint()
       : basic_endpoint{0}
     {
     }
 
-    /// Construct an endpoint that represents a particular CAN interface index.
     basic_endpoint(unsigned int interface_index)
     {
         addr_.can_ifindex = static_cast<int>(interface_index);
@@ -53,7 +156,6 @@ public:
           static_cast<unsigned short>(protocol_type{}.family());
     }
 
-    /// Construct an endpoint that represents a particular ISO-TP rx/tx pair on a specified CAN interface index.
     basic_endpoint(unsigned int interface_index, std::uint32_t rx, std::uint32_t tx)
     {
         addr_.can_ifindex = static_cast<int>(interface_index);
@@ -63,43 +165,36 @@ public:
         addr_.can_addr.tp.tx_id = tx;
     }
 
-    /// Constructs an object of the protocol type associated with this endpoint.
     protocol_type protocol() const noexcept
     {
         return protocol_type{};
     }
 
-    /// Returns the interface index that this endpoint represents.
     unsigned int interface_index() const noexcept
     {
         return static_cast<unsigned int>(addr_.can_ifindex);
     }
 
-    /// Get the underlying endpoint in the native type.
     data_type* data() noexcept
     {
         return reinterpret_cast<::sockaddr*>(&addr_);
     }
 
-    /// Get the underlying endpoint in the native type.
     data_type const* data() const noexcept
     {
         return reinterpret_cast<::sockaddr const*>(&addr_);
     }
 
-    /// Get the underlying size of the endpoint in the native type.
     std::size_t size() const noexcept
     {
         return sizeof(addr_);
     }
 
-    /// Get the underlying capacity of the endpoint in the native type.
     std::size_t capacity() const noexcept
     {
         return sizeof(addr_);
     }
 
-    /// Set the underlying size of the endpoint in the native type.
     void resize(std::size_t n)
     {
         if (n > capacity())

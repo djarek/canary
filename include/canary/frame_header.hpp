@@ -18,35 +18,122 @@
 namespace canary
 {
 
-/// A CAN frame header, used for transmission of both standard and flexible data
-/// rate frames.
+/* tag::reference[]
+
+[#canary_frame_header]
+=== `canary::frame_header`
+
+Defined in header `<canary/frame_header.hpp>`
+
+[source, c++]
+----
+class frame_header;
+----
+
+A CAN frame header, used for transmission of both standard and flexible data
+rate frames.
+
+[#canary_frame_header_frame_header]
+==== (constructor)
+[source, c++]
+----
+frame_header() = default;
+----
+Default constructor, performs zero-initialization.
+
+[#canary_id]
+==== `id()`
+[source, c++]
+----
+void id(std::uint32_t value);      <1>
+std::uint32_t id() const noexcept; <2>
+----
+Accessors for the CAN ID of the frame. CAN IDs are 29-bit integers for
+extended-format frames and 11-bit for standard-format frames.
+
+<1> Sets the value of the CAN ID. The 3 most significant bits of the value are
+ignored.
+<2> Returns the value of the CAN ID.
+
+[#canary_error]
+==== `error()`
+[source, c++]
+----
+void error(bool value);      <1>
+bool error() const noexcept; <2>
+----
+Accessors for the error flag of the frame.
+
+<1> Sets the value of the error flag. True indicates the frame is an error
+frame.
+<2> Returns the value of the error flag.
+
+[#canary_remote_transmission]
+==== `remote_transmission()`
+[source, c++]
+----
+void remote_transmission(bool value);      <1>
+bool remote_transmission() const noexcept; <2>
+----
+Accessors for the remote transmission flag of the frame. A remote transmission
+request indicates to the receiver that the value of the CAN ID should be sent.
+
+<1> Sets the value of the remote transmission flag. True indicates the frame is
+a remote transmission request.
+<2> Returns the value of the remote transmission flag.
+
+[#canary_extended_format]
+==== `extended_format()`
+[source, c++]
+----
+void extended_format(bool value);      <1>
+bool extended_format() const noexcept; <2>
+----
+Accessors for the extended format flag of the frame. An extended format frame
+uses 29 bit CAN IDs in contrast to a standard format frame, which uses 11 bit
+CAN IDs.
+
+<1> Sets the value of the extended format flag. True indicates the frame uses extended format CAN IDs.
+<2> Returns the value of the extended format flag.
+
+WARNING: The implementation may truncate the CAN ID if extended frame format is
+disabled and the ID is larger than 0x7FF.
+
+
+[#canary_payload_length]
+==== `payload_length()`
+[source, c++]
+----
+void payload_length(bool value);      <1>
+bool payload_length() const noexcept; <2>
+----
+Accessors for the payload_length of the frame. Payloads of up to 8 bytes are
+allowed for standard data rate sockets. If the flexible data rate option is
+enabled, payloads of up to 64 bytes are allowed.
+
+<1> Sets the the payload length.
+<2> Returns the payload length.
+
+
+''''
+
+end::reference[] */
+
 class frame_header
 {
 public:
-    /// Default constructor, performs zero-initialization.
     frame_header() = default;
 
-    /// Sets the CAN ID of this frame. CAN IDs are 29-bit integers for
-    /// extended-format frames and 11-bit for standard-format frames.
-    /// \param value the integral value of the ID.
     void id(std::uint32_t value)
     {
         id_ = ((value & id_mask) | (id_ & ~id_mask));
     }
 
-    /// Gets the CAN ID of this frame. CAN IDs are 29-bit integers for
-    /// extended-format frames and 11-bit for standard-format frames.
-    /// \returns The CAN ID of this frame.
     std::uint32_t id() const noexcept
     {
         return (id_ & id_mask);
     }
 
-    /// Sets the error flag of this frame.
-    /// \notes Transmitting an error frame over SocketCAN may not be
-    /// meaningful.
-    /// \param value The value of the flag. True indicates this frame will be an
-    /// error frame.
     void error(bool value)
     {
         if (value)
@@ -58,20 +145,12 @@ public:
             id_ &= ~error_flag;
         }
     }
-    /// Gets the error flag of this frame.
-    /// \notes Transmitting an error frame over SocketCAN may not be
-    /// meaningful.
-    /// \returns The value of the flag. True indicates this frame is an error
-    /// frame.
+
     bool error() const noexcept
     {
         return (id_ & error_flag);
     }
 
-    /// Sets the remote transmission flag of this frame.
-    /// \notes Frames with this flag enabled must not contain a payload.
-    /// \param value The value of the flag. True indicates this frame will be a
-    /// remote transmission request.
     void remote_transmission(bool value)
     {
         if (value)
@@ -84,19 +163,11 @@ public:
         }
     }
 
-    /// Gets the remote transmission flag of this frame.
-    /// \notes Frames with this flag enabled must not contain a payload.
-    /// \returns The value of the flag. True indicates this frame is a remote
-    /// transmission request.
     bool remote_transmission() const noexcept
     {
         return (id_ & rtr_flag);
     }
 
-    /// Sets the extended format flag. The flag determines whether this frame
-    /// uses 29-bit CAN IDs.
-    /// \param value The value of the flag. True indicates this frame will use
-    /// the extended format.
     void extended_format(bool value)
     {
         if (value)
@@ -109,29 +180,17 @@ public:
         }
     }
 
-    /// Gets the extended format flag. The flag determines whether this frame
-    /// uses 29-bit CAN IDs.
-    /// \returns The value of the flag. True indicates this frame uses the
-    /// extended format.
     bool extended_format() const noexcept
     {
         return (id_ & format_flag);
     }
 
-    /// Sets the payload length of this frame.
-    /// \notes  payload length must not exceed 8 bytes for standard data rate
-    /// frames and 64 bytes for flexible data rate frames.
-    /// \param n The length of the payload.
     void payload_length(std::size_t n)
     {
         assert(n <= 64 && "CAN frame payloads must not exceed 64 bytes.");
         length_ = static_cast<std::uint8_t>(n);
     }
 
-    /// Gets the payload length of this frame.
-    /// \notes  payload length must not exceed 8 bytes for standard data rate
-    /// frames and 64 bytes for flexible data rate frames.
-    /// \returns The length of the payload.
     std::size_t payload_length() const noexcept
     {
         return length_;

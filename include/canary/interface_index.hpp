@@ -16,25 +16,52 @@
 namespace canary
 {
 
-/// Retrieves the interface index required to bind a CAN socket to a particular
-/// CAN interface.
-/// \param name The network interface name.
-/// \param ec Set to indicate what error occurred when the function fails.
-/// \returns The interface index.
+/* tag::reference[]
+
+[#canary_get_interface_index]
+=== `canary::get_interface_index`
+
+Defined in header `<canary/interface_index.hpp>`
+
+[source, c++]
+----
+unsigned int get_interface_index(std::string const& name, error_code& ec); <1>
+unsigned int get_interface_index(std::string const& name);                 <2>
+----
+Returns the interface index assigned to a CAN interface name, e.g. `can0`.
+
+<1> On failure, `ec` is set to a non-zero value and the
+return value is unspecified.
+
+<2> On failure, throws https://en.cppreference.com/w/cpp/error/system_error[`std::system_error`].
+
+CAUTION: Calling `get_interface_index` with a `name` parameter that is not a
+valid 0-terminated string invokes Undefined Behavior.
+
+''''
+
+[#canary_any_interface]
+=== `canary::any_interface`
+
+[source, c++]
+----
+unsigned int any_interface();
+----
+Returns the index which represents any CAN interface.
+
+TIP: Use `receive_from`/`send_to` family of functions on sockets bound to
+this index to avoid accidentally sending CAN frames to the wrong interface.
+
+''''
+
+end::reference[] */
+
 CANARY_DECL unsigned int
 get_interface_index(std::string const& name, error_code& ec);
 
-/// Retrieves the interface index required to bind a CAN socket to a particular
-/// CAN interface.  Will throw an instance std::system_error if the function
-/// fails. \param name The network interface name. \returns The interface index.
 CANARY_DECL unsigned int
 get_interface_index(std::string const& name);
 
-/// Returns the index which represents any CAN interface.
-/// \note When using any CAN interface, it is recommended to use
-/// `receive_from`/`send_to` functions to avoid unintentionally sending frames
-/// to the wrong CAN interface.
-/// \returns The interface index.
 CANARY_DECL unsigned int
 any_interface();
 

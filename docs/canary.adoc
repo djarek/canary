@@ -1,0 +1,52 @@
+= Canary
+:copyright: Copyright 2020 Damian Jarek
+:version-label!:
+:reproducible:
+:nofooter:
+:sectanchors:
+:sectnums:
+:sectnumlevels: 5
+:icons: font
+:source-highlighter: prettify
+:source-language: c++
+:toc: left
+:toclevels: 2
+:caution-caption: ⚑
+:important-caption: ‼
+:note-caption: ℹ
+:tip-caption: ☀
+:warning-caption: ⚠
+:CPP: C++
+:PP: ++
+:P: +
+:tabsize: 4
+:git-source-link: ..
+
+include::../README.adoc[]
+
+== ABI compatibility
+The library does not guarantee ABI compatibility between different
+configurations of the library.
+
+WARNING: The library may "just work" if you link translation units compiled with
+different configurations, but it may break in the future. If it does break, it is
+considered user error.
+
+== Examples
+TODO
+
+== Reference
+
+include::../include/canary/interface_index.hpp[tag=reference]
+
+include::../include/canary/basic_endpoint.hpp[tag=reference]
+
+include::../include/canary/filter.hpp[tag=reference]
+
+include::../include/canary/frame_header.hpp[tag=reference]
+
+include::../include/canary/isotp.hpp[tag=reference]
+
+include::../include/canary/raw.hpp[tag=reference]
+
+include::../include/canary/socket_options.hpp[tag=reference]

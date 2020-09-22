@@ -21,7 +21,41 @@
 namespace canary
 {
 
-/// Encapsulates flags necessary for creation of raw CAN sockets.
+/* tag::reference[]
+
+[#canary_raw]
+=== `canary::raw`
+
+Defined in header `<canary/raw.hpp>`
+
+[source, c++]
+----
+class raw;
+----
+
+Encapsulates flags necessary for creation of raw CAN sockets.
+
+TIP: You can use `net::basic_raw_socket<canary::raw, Executor>` to construct a socket that uses the specified Executor type.
+
+[#canary_raw_endpoint]
+==== `endpoint`
+[source, c++]
+----
+using endpoint = basic_endpoint<raw>;
+----
+The endpoint type, which represents a CAN interface.
+
+[#canary_raw_socket]
+==== `endpoint`
+[source, c++]
+----
+using socket = net::basic_raw_socket<raw>;
+----
+Raw socket type. Uses a polymorphic executor type.
+
+''''
+
+end::reference[] */
 class raw
 {
 public:

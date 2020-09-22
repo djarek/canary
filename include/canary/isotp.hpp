@@ -21,31 +21,60 @@
 namespace canary
 {
 
-// /// Encapsulates flags necessary for creation of ISO-TP sockets.
+/* tag::reference[]
+
+[#canary_isotp]
+=== `canary::isotp`
+
+Defined in header `<canary/isotp.hpp>`
+
+[source, c++]
+----
+class isotp;
+----
+
+Encapsulates flags necessary for creation of ISO-TP sockets.
+
+TIP: You can use `net::basic_datagram_socket<canary::isotp, Executor>` to construct a socket that uses the specified Executor type.
+
+[#canary_isotp_endpoint]
+==== `endpoint`
+[source, c++]
+----
+using endpoint = basic_endpoint<isotp>;
+----
+The endpoint type, which represents an ISO-TP triplet (interface index, RX id, TX ID).
+
+[#canary_isotp_socket]
+==== `endpoint`
+[source, c++]
+----
+using socket = net::basic_datagram_socket<isotp>;
+----
+ISO-TP socket type. Uses a polymorphic executor type.
+
+''''
+
+end::reference[] */
 class isotp
 {
 public:
-    /// Obtain an identifier for the protocol type.
     int type() const noexcept
     {
         return SOCK_DGRAM;
     }
 
-    /// Obtain an identifier for the protocol.
     int protocol() const noexcept
     {
         return CAN_ISOTP;
     }
 
-    /// Obtain an identifier for the address family.
     int family() const noexcept
     {
         return AF_CAN;
     }
 
-    /// CAN endpoint type, represents a CAN interface (e.g. vcan0)
     using endpoint = basic_endpoint<isotp>;
-    /// Raw CAN socket type
     using socket = net::basic_datagram_socket<isotp>;
 };
 
