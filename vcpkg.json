@@ -1,7 +1,7 @@
 {
     "name": "canary",
     "maintainers": "Damian Jarek <damian.jarek93@gmail.com>",
-    "version-string": "2-dev",
+    "version-string": "1.1.0",
     "license": "BSL-1.0",
     "homepage": "https://github.com/djarek/canary",
     "documentation": "https://github.com/djarek/canary#documentation",

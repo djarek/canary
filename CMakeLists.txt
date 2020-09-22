@@ -8,7 +8,7 @@
 #
 
 cmake_minimum_required(VERSION 3.8)
-project(canary VERSION 2 LANGUAGES CXX)
+project(canary VERSION 1.1.0 LANGUAGES CXX)
 
 # TODO: Don't require Boost if ASIO standalone option is required
 find_package(Boost 1.70
@@ -62,7 +62,7 @@ unset(CMAKE_SIZEOF_VOID_P)
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
     "canaryConfigVersion.cmake"
-    COMPATIBILITY AnyNewerVersion)
+    COMPATIBILITY SameMajorVersion)
 
 set(CMAKE_SIZEOF_VOID_P ${canary_SIZEOF_VOID_P})
 unset(canary_SIZEOF_VOID_P)
@@ -76,16 +76,3 @@ install(EXPORT canaryTargets
         FILE canaryTargets.cmake
         NAMESPACE canary::
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/canary)
-
-option(CANARY_BUILD_DOCS "Build canary documentation." OFF)
-if (CANARY_BUILD_DOCS)
-    file(GLOB CANARY_HEADERS "${CMAKE_SOURCE_DIR}/include/canary/*.hpp")
-    find_package(standardese REQUIRED)
-    standardese_generate(canary_docs
-        INCLUDE_DIRECTORY
-            ${CMAKE_SOURCE_DIR}/include
-            ${Boost_INCLUDE_DIR}
-        MACRO_DEFINITION
-            CANARY_SEPARATE_COMPILATION
-        INPUT ${CANARY_HEADERS})
-endif()
