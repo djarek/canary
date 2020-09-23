@@ -46,7 +46,7 @@ using endpoint = basic_endpoint<isotp>;
 The endpoint type, which represents an ISO-TP triplet (interface index, RX id, TX ID).
 
 [#canary_isotp_socket]
-==== `endpoint`
+==== `socket`
 [source, c++]
 ----
 using socket = net::basic_datagram_socket<isotp>;

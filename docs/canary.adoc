@@ -10,7 +10,7 @@
 :source-highlighter: prettify
 :source-language: c++
 :toc: left
-:toclevels: 2
+:toclevels: 3
 :caution-caption: ⚑
 :important-caption: ‼
 :note-caption: ℹ
@@ -21,6 +21,7 @@
 :P: +
 :tabsize: 4
 :git-source-link: ..
+:docinfo: shared,private
 
 include::../README.adoc[]
 
@@ -29,8 +30,7 @@ The library does not guarantee ABI compatibility between different
 configurations of the library.
 
 WARNING: The library may "just work" if you link translation units compiled with
-different configurations, but it may break in the future. If it does break, it is
-considered user error.
+different configurations, but it may break in the future.
 
 == Examples
 TODO

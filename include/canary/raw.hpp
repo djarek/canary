@@ -46,7 +46,7 @@ using endpoint = basic_endpoint<raw>;
 The endpoint type, which represents a CAN interface.
 
 [#canary_raw_socket]
-==== `endpoint`
+==== `socket`
 [source, c++]
 ----
 using socket = net::basic_raw_socket<raw>;

@@ -10,7 +10,7 @@
 #ifndef CANARY_FRAME_HEADER_HPP
 #define CANARY_FRAME_HEADER_HPP
 
-#include <boost/asio/buffer.hpp>
+#include <canary/detail/config.hpp>
 
 #include <cassert>
 #include <cstdint>
@@ -93,7 +93,8 @@ Accessors for the extended format flag of the frame. An extended format frame
 uses 29 bit CAN IDs in contrast to a standard format frame, which uses 11 bit
 CAN IDs.
 
-<1> Sets the value of the extended format flag. True indicates the frame uses extended format CAN IDs.
+<1> Sets the value of the extended format flag. True indicates the frame uses
+extended format CAN IDs.
 <2> Returns the value of the extended format flag.
 
 WARNING: The implementation may truncate the CAN ID if extended frame format is
