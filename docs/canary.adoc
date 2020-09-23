@@ -27,13 +27,34 @@ include::../README.adoc[]
 
 == ABI compatibility
 The library does not guarantee ABI compatibility between different
-configurations of the library.
+configurations or versions of the library.
 
 WARNING: The library may "just work" if you link translation units compiled with
 different configurations, but it may break in the future.
 
 == Examples
-TODO
+=== Asynchronous raw CAN, using C++20 coroutines
+
+[source, c++]
+----
+include::../examples/raw/async/cpp20_coro.cpp[tag=example]
+----
+
+=== Blocking raw CAN
+
+[source, c++]
+----
+include::../examples/raw/blocking/blocking.cpp[tag=example]
+----
+
+=== Blocking ISO-TP
+
+[source, c++]
+----
+include::../examples/isotp/blocking/blocking.cpp[tag=example]
+----
+
+
 
 == Reference
 

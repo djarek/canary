@@ -45,15 +45,15 @@ needs to be built and installed separately.
 .2+| Library | Default | Boost.ASIO
              | Standalone | ASIO
 
-.2+| Tests (optional) | Default | Boost.Core
-   |      Standalone | Boost.Core
+.2+| Tests (optional) | Default    | Boost.Core
+                      | Standalone | Boost.Core
 
-.2+| Examples (optional) | Default | Boost.ASIO
-   |      Standalone | ASIO
+.2+| Examples (optional) | Default    | Boost.ASIO
+                         | Standalone | ASIO
 
 |=======================
 
-=== Standalone mode
+=== Standalone ASIO mode
 **Canary** can be configured to use standalone ASIO by defining
 `CANARY_STANDALONE_ASIO`. The library provides the convenience alias
 `canary::net` which refers to either `boost::asio` or `asio` in standalone mode.
