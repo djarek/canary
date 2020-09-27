@@ -33,6 +33,16 @@ WARNING: The library may "just work" if you link translation units compiled with
 different configurations, but it may break in the future.
 
 == Examples
+
+The examples can be compiled by setting the `CANARY_BUILD_EXAMPLES` flat to `ON`. C++20 coroutine examples require the option `CANARY_BUILD_COROUTINE_EXAMPLES` to be set to `ON` as well.
+
+[source, bash]
+----
+cmake -H. -Bbuild -DCANARY_BUILD_EXAMPLES=ON -DCANARY_BUILD_COROUTINE_EXAMPLES=ON
+cmake --build build --target canary_examples
+----
+
+
 === Asynchronous raw CAN, using C++20 coroutines
 
 [source, c++]
@@ -47,6 +57,11 @@ include::../examples/raw/async/cpp20_coro.cpp[tag=example]
 include::../examples/raw/blocking/blocking.cpp[tag=example]
 ----
 
+=== Asynchronous ISO-TP, using C++20 coroutines
+[source, c++]
+----
+include::../examples/isotp/async/cpp20_coro.cpp[tag=example]
+----
 === Blocking ISO-TP
 
 [source, c++]
