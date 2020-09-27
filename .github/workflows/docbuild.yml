@@ -1,0 +1,21 @@
+name: Doc build
+
+on: push
+
+jobs:
+  docbuild:
+    runs-on: ubuntu-latest
+    name: Build documentation
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build AsciiDoc step
+        id: documents
+        uses: Analog-inc/asciidoctor-action@master
+        with:
+          shellcommand: "asciidoctor -a git-source-link=https://github.com/djarek/canary/blob/master  --backend=html  docs/canary.adoc"
+      - name: Save AsciiDoc step
+        uses: actions/upload-artifact@v2
+        with:
+          name: Documentation
+          path: docs/canary.html
