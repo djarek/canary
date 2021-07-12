@@ -23,7 +23,7 @@ add_library(canary INTERFACE)
 add_library(canary::canary ALIAS canary)
 
 target_include_directories(canary INTERFACE
-    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
 target_link_libraries(
@@ -49,7 +49,7 @@ endif()
 
 include(GNUInstallDirs)
 
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
         FILES_MATCHING
             PATTERN "*.hpp"
@@ -72,7 +72,7 @@ unset(canary_SIZEOF_VOID_P)
 
 install(FILES
             "canaryConfig.cmake"
-            "${CMAKE_BINARY_DIR}/canaryConfigVersion.cmake"
+            "${CMAKE_CURRENT_BINARY_DIR}/canaryConfigVersion.cmake"
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/canary)
 
 install(EXPORT canaryTargets
@@ -82,11 +82,11 @@ install(EXPORT canaryTargets
 
 option(CANARY_BUILD_DOCS "Build canary documentation." OFF)
 if (CANARY_BUILD_DOCS)
-    file(GLOB CANARY_HEADERS "${CMAKE_SOURCE_DIR}/include/canary/*.hpp")
+    file(GLOB CANARY_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/include/canary/*.hpp")
     find_package(standardese REQUIRED)
     standardese_generate(canary_docs
         INCLUDE_DIRECTORY
-            ${CMAKE_SOURCE_DIR}/include
+            ${CMAKE_CURRENT_SOURCE_DIR}/include
             ${Boost_INCLUDE_DIR}
         MACRO_DEFINITION
             CANARY_SEPARATE_COMPILATION
